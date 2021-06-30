@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!--스프링이 등록된 appleBean을 기본 생성자로 생성해서 관리 -->
+	<!--맴버변수에 값을 대입 후 bean 생성하게 설정하기 1.setter이용 2.매개변수 있는 생성자 이용 -->
+	<!-- <bean id="apple" class="com.kh.spring.Fruit"> <property name="name" 
+		value="사과"/> <property name="price" value="2000"/> <property name="color" 
+		value="녹색"/> </bean> -->
+	<bean id="apple" class="com.kh.spring.Fruit">
+		<constructor-arg index="0" value="사과" />
+		<constructor-arg index="1" value="2000" />
+		<constructor-arg index="2" value="녹색" />
+	</bean>
+
+
+</beans>
