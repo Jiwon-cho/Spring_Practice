@@ -4,6 +4,11 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +52,8 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpSession session,
+			HttpServletResponse res) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		
@@ -68,7 +74,14 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";// /WEB-INF/views/home.jsp -> 전환하는방식 : RequestDispatcher.forward();
+		session.setAttribute("userId", "admin");
+		
+		Cookie c=new Cookie("time","마지막시간");
+		c.setMaxAge(60*60*24);
+		res.addCookie(c);
+		
+		
+		return "index";// /WEB-INF/views/home.jsp -> 전환하는방식 : RequestDispatcher.forward();
 	}
 	
 }
