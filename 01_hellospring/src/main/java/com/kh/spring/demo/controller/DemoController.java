@@ -1,12 +1,14 @@
 package com.kh.spring.demo.controller;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.spring.demo.model.service.DemoService;
 import com.kh.spring.demo.model.vo.Dev;
 @Controller
 public class DemoController {
+	@Autowired
+	private DemoService service;
 
 	
 	@RequestMapping(value = "/demo/demo.do", method = RequestMethod.GET)
@@ -145,4 +150,21 @@ public class DemoController {
 		return "demo/demoResult";
 	}
 	
+	
+	@RequestMapping("/demo/insertDemo.do")
+	public String insertDemo(Dev dev,Model m) {
+		int result=service.insertDemo(dev);
+		m.addAttribute("msg",result>0?"입력성공":"입력실패");
+		m.addAttribute("loc","/demo/demo.do");
+		return "common/msg";
+	}
+	
+	@RequestMapping("/demo/demoList")
+	public String selectList(Model m) {
+		List<Dev> list=service.selectDevList();
+		m.addAttribute("list",list);
+		System.out.println(list);
+		return "demo/demoList";
+		
+	}
 }

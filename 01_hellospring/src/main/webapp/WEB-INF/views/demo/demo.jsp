@@ -101,6 +101,11 @@
 				추가적인 정보 가져오기
 			</button>
 		</div>
+		<div class="list-group">
+			<button type="button" class="list-group-item list-group-item-action" onclick="fn_demo('insertDemo.do');">
+			Demo 정보 입력하기
+			</button>
+		</div>
 	</div>
 </section>
 	<script>

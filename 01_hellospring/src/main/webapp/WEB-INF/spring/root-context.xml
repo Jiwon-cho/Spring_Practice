@@ -16,4 +16,27 @@
 	</bean>
 
 
+	<!--DB접속을 위한 클래스 bean 으로 등록하기  -->
+	<!--1. jdbc로 DB에 연결하는 정보를 저장하는 클래스 bean등록 -> BasicDataSource 
+		2. mybatis에서 사용하는 SqlSession을 생성하는 클래스 등록하기 ->SqlSessionFactoryBean
+		  -mybatis 설정 파일 -> mybatis-config.xml
+		  -mapper파일->000-mapper.xml
+		  -dataSource 에 대한 정ㅈ보
+		3. 실제 SqlSession클래스로 사용되는 클래스 등록 -> SqlSessionTemplate
+	 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+<property name="username" value="SPRING"/>
+<property name="password" value="SPRING"/>
+</bean>
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<property name="dataSource" ref="dataSource"/>
+<property name="configLocation" value="classpath:mybatis-config.xml"/>
+<property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
+</bean>
+<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+<constructor-arg index="0" ref="sqlSessionFactory"/>
+</bean>
+
 </beans>

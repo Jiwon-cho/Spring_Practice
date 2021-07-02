@@ -44,10 +44,18 @@
 							<a class="nav-link" href="">게시판</a>
 						</li>
 						
-						<li class="nav-item">
+						<%-- <li class="nav-item">
 							<a class="nav-link" href="${path }/demo/demo.do">Demo</a>
 						</li>
-						
+						 --%>
+						 <li class="nav-item dropdown">
+						 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						 aria-haspopup="true" aria-expanded="false">demo</a>
+						 <div class="dropdown-menu" aria-lebelledby="navbarDropdown">
+						 	<a class="dropdown-item" href="${path }/demo/demo.do">Demo 등록</a>
+						 	<a class="dropdown-item" href="${path }/demo/demoList.do">Demo 목록</a>
+						 </div>
+						 </li>
 					</ul>
 				</div>
 			</nav>
