@@ -19,6 +19,7 @@
 <script src="${path }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+${sessionScope.loginMember }
 	<div id="container">
 		<header>
 			<div id="header-container">
@@ -56,8 +57,49 @@
 								<a class="dropdown-item" href="${path }/demo/demoList.do">Demo목록</a>
 							</div>
 						</li>
-						
 					</ul>
+					<c:if test="${loginMember==null }">
+						<button class="btn btn-outline-success my-2 my-sm-0"
+						type="button" data-toggle="modal" data-target="#loginModal">로그인</button>
+						 &nbsp;&nbsp;
+						 <button class="btn btn-outline-success my-2 my-sm-0" type="button" 
+						 onclick="location.assign('${path}/member/enrollMember.do');">회원가입</button>
+						</c:if>
+						<c:if test="${loginMember!=null }">
+						<span>
+							<a href="">${loginMember.userName }</a>님,환영합니다
+						</span>
+						&nbsp;
+						<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+						onclick="location.assign('${path}/member/logout.do');">로그아웃</button>
+						</c:if>
 				</div>
 			</nav>
 		</header>
+		
+		
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">
+				로그인
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="close">
+					<span aria-hidden="true">&times;</span>	
+				</button>
+			</div> 
+			<form action="${path }/member/memberLogin.do" method="post">
+			<div class="modal-body">
+				<input type="text" name="userId" placeholder="아이디 입력" required class="form-control"/>
+				<input type="password" name="password" placeholder="패스워드 입력" required class="form-control"/>
+			</div>
+			<div class="modal-fotter">
+				<button type="submit" class="btn btn-outline-success">로그인</button>
+				<button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+			</div>
+			</form>
+		</div>
+		</div>
+	</div>
