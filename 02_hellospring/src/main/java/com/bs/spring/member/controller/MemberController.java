@@ -3,6 +3,8 @@ package com.bs.spring.member.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.bs.spring.member.model.service.MemberService;
 import com.bs.spring.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
- @SessionAttributes({"loginMember"}) 
+ @SessionAttributes({"loginMember"})
+@Slf4j
 public class MemberController {
+	
+	//private Logger logger=LoggerFactory.getLogger(MemberController.class);
 
 	@Autowired
 	private MemberService ms;
@@ -27,6 +34,10 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String loginMember(Member m,HttpSession session,Model md) {
+		log.debug(m.getUserId());
+		log.debug(m.getPassword());
+		
+		
 		Member mm=ms.loingMember(m);
 		String msg=null;
 		String loc="/";
@@ -88,8 +99,13 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberEnrollEnd.do")
 	public String memberEnrollEnd(Member m, Model md) {
-		System.out.println("암호화전: "+ m.getPassword());
-		System.out.println("암호화후: "+pwEncoder.encode(m.getPassword()));
+		/*
+		 * System.out.println("암호화전: "+ m.getPassword());
+		 * System.out.println("암호화후: "+pwEncoder.encode(m.getPassword()));
+		 */
+		log.debug("암호화전: {}",m.getPassword());
+		log.debug("암호화후: {}",pwEncoder.encode(m.getPassword()));
+		
 		m.setPassword(pwEncoder.encode(m.getPassword()));
 		
 		int result=ms.insertMember(m);
@@ -113,6 +129,11 @@ public class MemberController {
 	
 	}
 	
-	
+	/*
+	 * @RequestMapping("/msg") public String message( Model md) {
+	 * md.addAttribute("msg","로그인 후 사용 가능합니다"); md.addAttribute("loc","/");
+	 * 
+	 * return "common/msg"; }
+	 */
 	
 }
