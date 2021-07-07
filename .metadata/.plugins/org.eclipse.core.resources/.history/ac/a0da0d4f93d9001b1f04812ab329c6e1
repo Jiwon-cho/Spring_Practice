@@ -1,9 +1,0 @@
-package com.kh.psring.service.dao;
-
-public class TestDao {
-	
-	public void test() {
-		
-	}
-
-}

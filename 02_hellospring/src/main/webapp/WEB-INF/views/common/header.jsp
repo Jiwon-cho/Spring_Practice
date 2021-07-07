@@ -57,6 +57,9 @@ ${sessionScope.loginMember }
 								<a class="dropdown-item" href="${path }/demo/demoList.do">Demo목록</a>
 							</div>
 						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="${path }/memo/memo.do">메모</a>
+						</li>
 					</ul>
 					<c:if test="${loginMember==null }">
 						<button class="btn btn-outline-success my-2 my-sm-0"

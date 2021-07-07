@@ -1,8 +1,0 @@
-package com.kh.spring;
-
-@Component
-public class Animal {
-	private String name;
-	private int age;
-
-}

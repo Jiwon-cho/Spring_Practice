@@ -28,7 +28,23 @@
 <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p [%l] - %m%n"/>
 <!--  value="%-5p: %c - %m%n" />  -->
 </layout>
-	</appender>
+</appender>
+<appender name="sqlconsole" class="org.apache.log4j.ConsoleAppender">
+<param name="Target" value="System.out"/>
+<layout class="org.apache.log4j.PatternLayout">
+<param name="ConversionPattern" value="%-5p : %m%n"/>
+</layout>
+</appender>
+<logger name="jdbc.sqlonly" additivity="false">
+<level value="info"/>
+<appender-ref ref="sqlconsole"/>
+<appender-ref ref="fileLogger"/>
+</logger>
+<logger name="jdbc.resultsettable" additivity="false">
+<level value="info"/>
+<appender-ref ref="sqlconsole"/>
+<appender-ref ref="fileLogger"/>
+</logger>
 	
 	<!-- Application Loggers -->
 	<!-- debug->info->warn->error->fatal -->
