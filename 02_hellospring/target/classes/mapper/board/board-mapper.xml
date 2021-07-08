@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+	<select id="selectBoardList" resultMap="boardMap">
+		SELECT*
+		FROM BOARD B LEFT JOIN ATTACHMENT A ON B.BOARDNO=A.BOARDNO
+	</select>
+	
+	<select id="selectBoardCount" resultType="_int">
+	SELECT COUNT(*) FROM BOARD
+	
+	</select>
+	
+	<resultMap type="board" id="boardMap">
+		<id column="boardNo" property="boardNo"/>
+		<result column="boardTitle" property="boardTitle"/>
+		<result column="boardWriter" property="boardWriter"/>
+		<result column="boardContent" property="boardContent"/>
+		<result column="boardDate" property="boardDate"/>
+		<result column="boardreadCount" property="boardCount"/>
+		<collection property="attachments" resultMap="attachmentMap"></collection>
+	</resultMap>
+	<resultMap type="attachment" id="attachmentMap">
+	<id column="attachmentNo" property="attachmentNo"/>
+	<result column="boardNo" property="boardNo"/>
+	<result column="originalFilename" property="originalFilename"/>
+	<result column="renamedFilename" property="renamedFilename"/>
+	<result column="uploadDate" property="uploadDate"/>
+	<result column="downloadCount" property="downloadCount"/>
+	</resultMap>
+
+</mapper>
